@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<aiml version="1.0.1" xmlns="http://alicebot.org/2001/AIML-1.0.1"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://alicebot.org/2001/AIML-1.0.1
+http://aitools.org/aiml/schema/AIML.xsd">
+ <!--
+	Oscar Teeninga
+	296699
+	Wykorzystane konstrucje:
+		Losowanie - <random>, 
+		Synonimy - <srai>, 
+		Redukcja symboliczna - </star>
+		Słowa kluczowe - _ / *,
+		Kontekst - <that>,
+		Kontekst - <topic>,
+		Predykaty - <set>/<get>,
+		Wyrazenia warunkowe - <condition>,
+-->
+<!--0-->
+<category>
+	<pattern>imie</pattern>
+	<template>Jestem <get name="imiebota"/>, milo mi :)</template>
+</category>
+<!--1-->
+<category>
+	<pattern>Dzien dobry</pattern>
+	<template>
+		<random>
+			<li>Dzien dobry! W czym moge pomoc?</li>
+			<li>Witam, czy moge w czyms pomoc?</li>
+			<li>Milo mi poznac, co Pana/Pania sprowadza?</li>
+			<li>Czesc, jestem botem, prosze zadawac pytania.</li>
+		</random>
+	</template>
+</category>
+<!--2-->
+<category>
+	<pattern>Czesc</pattern> 
+	<template>
+		<srai>Dzien dobry</srai>
+	</template>
+</category>
+<!--3-->
+<category>
+	<pattern>Witam</pattern> 
+	<template>
+		<srai>Dzien dobry</srai>
+	</template>
+</category>
+<!--4-->
+<category>
+	<pattern>Chcialbym zglosic *</pattern>
+	<template>Prosze podac szczegoly zgloszenia:</template>
+</category>
+<!--5-->
+<category>
+	<pattern>*</pattern>
+	<that>Prosze podac szczegoly zgloszenia</that>
+	<template>Zgloszenie '<set name="opis"><star/></set>' zostalo wyslane, tresc: <get name="opis"/></template>
+</category>
+<!--6-->
+<category>
+	<pattern>Chcialbym *</pattern>
+	<template>
+		<srai><star/></srai>
+	</template>
+</category>
+<!--7-->
+<category>
+	<pattern>Interesuje mnie *</pattern>
+	<template>
+		<srai><star/></srai>
+	</template>
+</category>
+<!--8-->
+<category>
+	<pattern>kupic</pattern>
+	<template>Co chce Pan kupic?</template>
+</category>
+<!--9-->
+<category>
+	<pattern>kupic</pattern>
+	<that>Co chcialby Pan zrobic</that>
+	<template><srai>kupiciphone</srai></template>
+</category>
+<!--10-->
+<category>
+	<pattern>kupiciphone</pattern>
+	<template>Zapraszamy na strone www.kupiphone.pl</template>
+</category>
+<!--11-->
+<category>
+	<pattern>iphone</pattern>
+	<template>Co chcialby Pan zrobic?</template>
+</category>
+<!--12-->
+<category>
+	<pattern>iphone</pattern>
+	<that>Co chce Pan kupic</that>
+	<template><srai>kupiciphone</srai></template>
+</category>
+<!--13-->
+<category>
+	<pattern>_ kupic</pattern> 
+	<template>
+		<srai>kupic</srai>
+	</template>
+</category>
+<!--14-->
+<category>
+	<pattern>kupic _</pattern>
+	<template>
+		<srai>kupic</srai>
+	</template>
+</category>
+<!--15-->
+<category>
+	<pattern>_ kupic *</pattern>
+	<template>
+		<srai>kupic</srai>
+	</template>
+</category>
+<!--16-->
+<category>
+	<pattern>ipad</pattern>
+	<template>Niestety, aktualnie nie mamy iPadow</template>
+</category>
+<!--17-->
+<category>
+	<pattern>Do widzenia</pattern>
+	<template>Do uslyszenia, zapraszam do oceny: <srai>ocena</srai></template>
+</category>
+<!--18-->
+<category>
+	<pattern>Do zobaczenia</pattern> 
+	<template>
+		<srai>Do widzenia</srai>
+	</template>
+</category>
+<!--19-->
+<category>
+	<pattern>Do usłyszenia</pattern> 
+	<template>
+		<srai>Do widzenia</srai>
+	</template>
+</category>
+<!--20-->
+<category>
+	<pattern>Pozdrawiam</pattern> 
+	<template>
+		<srai>Do widzenia</srai>
+	</template>
+</category>
+<!--21-->
+<category>
+	<pattern>ocena</pattern>
+	<template>Ocen bota w skali 1 do 5
+	<think><set name="topic">OCENIANIE</set></think>
+	</template>
+</category>
+<!--22-->
+<topic name="OCENIANIE">
+<category>
+	<pattern>*</pattern>
+	<template>
+	<think><set name="ocena"><uppercase><star /></uppercase></set></think>
+	<condition>
+		<li name="ocena" value="1">Beznadziejnie, przepraszam<think><set name="topic">*</set></think></li>
+		<li name="ocena" value="2">Kiepsko, postaram sie bardziej<think><set name="topic">*</set></think></li>
+		<li name="ocena" value="3">Eh, mogloby byc lepiej<think><set name="topic">*</set></think></li>
+		<li name="ocena" value="4">O, bardzo mi milo<think><set name="topic">*</set></think></li>
+		<li name="ocena" value="5">Hurra, bardzo sie ciesze, dziekuje<think><set name="topic">*</set></think></li>
+		<li>Nie rozumiem twojej oceny, sprobuj jeszcze raz</li>
+	</condition>
+	</template>
+</category>
+</topic>
+<!--23-->
+<category>
+	<pattern>*</pattern>
+	<template>Nie rozumiem</template>
+</category>
+<!--24-->
+<category>
+	<pattern>*</pattern>
+	<that>Nie rozumiem</that>
+	<template>Dalej nie rozumiem, zapraszam na infolinie 918273645</template>
+</category>
+</aiml>
