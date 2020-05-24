@@ -25,6 +25,7 @@ public class AnimeDescriptionGetter {
             Document doc = Jsoup.connect(url).get();
             String description = doc.select("p").get(1).text();
             description = description.replace("\'", " ");
+            description = description.replace(",", " ");
             String type = doc.select("span.second").get(0).text();
             writer.writeNext(new String[] { type, description});
             System.out.println(getCount() + ": " + type + " - " + description);
